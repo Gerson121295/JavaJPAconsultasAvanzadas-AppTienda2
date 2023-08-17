@@ -1,4 +1,9 @@
 
+-----   Curso JAVA y JPA: Consultas avanzadas, rendimiento y modelos complejos.   -----
+
+Diagrama de la BD tienda: 
+https://lucid.app/lucidchart/29de0124-2009-4307-9937-73e790bde509/edit?beaconFlowId=815E54A21FFE6249&invitationId=inv_0701fbad-9a1c-4765-bc89-1851e02b98aa&page=0_0#
+
 --Conexion de github
 …or create a new repository on the command line -- Pegar todo esto en CMD de eclipse
 
@@ -14,7 +19,6 @@ git push -u origin main
 git remote add origin git@github.com:Gerson121295/JavaJPAconsultasAvanzadas-AppTienda2.git
 git branch -M main
 git push -u origin main
-
 
 
 - Descargar el proyecto del curso de Persistencia con JPA - Hibernate.
