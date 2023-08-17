@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence version="2.2"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+	<persistence-unit name="tienda" transaction-type="RESOURCE_LOCAL"><!--  Data de la BD - Por cada BD va un persistence-unit en este caso la BD es tienda. -->
+	
+	<!-- Mapeo de las entidades:
+	Si se mapean una de las de las entidades tendrían que mapear todas las entidades, no podrían mapear una y otra no. 
+	Hibernate, por default, si no se colocan esta etiqueta, él mapea todas las entidades que tengan la anotación @Entity.
+	 -->
+	 
+	<!--  <class>br.com.alura.loja.modelo.Produto</class>  -->  <!-- Mapeo de la entidad es opcional -->
+	
+        <properties>
+        
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+    		<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:tienda"/>
+    		<property name="javax.persistence.jdbc.user" value="sa"/>
+    		<property name="javax.persistence.jdbc.password" value=""/>
+
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/> <!-- Para dar estilo a nuestras consultas que se ven en consola -->
+			<property name="hibernate.hbm2ddl.auto" value="update"/> 
+			
+			<!-- <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+			
+			<!--   <property name="hibernate.show_sql" value="create-drop"/>   -->  		
+			<!-- "create" - Crea la BD, tabla las columnas y guarda los valores -->
+			<!-- "create-drop" - Crea la BD, tablas y columnas luego que halla finalizado eliminara los valores creados de la BD  -->
+			<!-- "validate" - No crea ni actualiza los valores, solo verifica que los valores sean correctos y que existan  -->
+			<!--  "update" - Crea la tabla en caso de que no exista y en caso de que exista realiza las operaciones y si falta un nuevo elemento el lo crea. -->
+			
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+			       
+        
+        </properties>
+    </persistence-unit>
+</persistence>
+
+

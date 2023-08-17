@@ -1,0 +1,76 @@
+
+--Conexion de github
+…or create a new repository on the command line -- Pegar todo esto en CMD de eclipse
+
+echo "# Curso-PersistenciaConJPA-Hibernate" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:Gerson121295/JavaJPAconsultasAvanzadas-AppTienda2.git
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin git@github.com:Gerson121295/JavaJPAconsultasAvanzadas-AppTienda2.git
+git branch -M main
+git push -u origin main
+
+
+
+- Descargar el proyecto del curso de Persistencia con JPA - Hibernate.
+https://github.com/alura-cursos/JPA-con-hibernate-Alura-/tree/stage-final
+
+Decargar el software H2 para la base de datos:
+https://www.h2database.com/html/main.html  
+elegir windows installer Luego instalar el software H2.
+
+
+Configurar H2 para crear e ingresar la BD a utilizar:
+Para configurar la url de la base de datos vamos a ejecutar el software de h2
+Buscar el programa H2 en nuestra maquina llamado H2 Console y darle clic para ejecutarlo.
+
+Revisamos en la barra de tareas(donde estan las apps abiertas) en la parte donde esta un 
+signo de elevacion ^ donde se desplegan los iconos sobre antivirus, memoria, etc. ahi se
+encontrara el icono de H2 para la BD. Clic derecho sobre el icono H2 y clic en crear una 
+nueva base de datos(create new database).
+
+- En la ruta de la base de datos el último nombre va a ser el nombre de la base de datos 
+y el restante las carpetas del directorio.
+
+	---------   H2 Console  ----------
+	Database path: /prueba./test
+	Username:	sa
+	password:	admin
+	password confirmation: admin
+			Clic en Create.
+	----------------------------------
+
+- Luego vamos a ejecutar la aplicación de h2 y modificar los valores con los de la 
+base de datos que acabamos de crear (url,usuario,password) y seleccionamos connect.
+
+	Registrar 
+	----------------------------------
+	Configuraciones guardadas:  Generic H2(Embedded)	
+	Nombre de la configuración: Generic H2(Embedded)	
+	Controlador: 	org.h2.Driver
+	URL JDBC: 	jdbc:h2:~/prueba/test
+	Nombre de usuario: 	sa
+	Contraseña: 	admin
+		Conectar	Probar la conexion
+	----------------------------------
+
+
+
+	
+  
+
+
+
+
+
+
+
+
+
+
+

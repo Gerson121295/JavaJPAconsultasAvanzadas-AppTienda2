@@ -1,0 +1,379 @@
+
+…or create a new repository on the command line -- Pegar todo esto en CMD de eclipse
+
+echo "# Curso-PersistenciaConJPA-Hibernate" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:Gerson121295/Curso-PersistenciaConJPA-Hibernate.git
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin git@github.com:Gerson121295/Curso-PersistenciaConJPA-Hibernate.git
+git branch -M main
+git push -u origin main
+
+
+
+----  Curso de  Persistencia con JPA - Hibernate
+
+JPA - Java Persistence API
+
+- Sobre JDBC, que es la tecnología predeterminada de Java para acceder a bases de datos 
+relacionales. 
+JDBC no es más que una especificación para acceder a las bases de datos relacionales, 
+por lo tanto solo una capa de abstracción para acceder desde el código, 
+independientemente del protocolo.
+
+-- JDBC
+- Especificacion para acceso al banco de datos relacional JAVA.
+- Abstraccion del protocolo de comunicacion con el banco de datos.
+- Drivers del banco de datos son implementaciones de JDBC.
+- Impacto minimo en la aplicacion al cambiar de bando de datos.
+- Pattern DAO ayuda a aislar el codigo entre la API y JDBC.
+
+	Controller/Service(logica de Negocios)  --->    DAO(JDBC)    ---> BD
+
+Para mantener el código JDBC disperso en varios puntos de la aplicación se creó un patrón 
+de diseño, que es el DAO, Data Access Object. Con este podemos aislar todo el pedido de JDBC 
+dentro de una sola clase, para no quedarnos con los códigos connection result set dispersos 
+por toda la aplicación que son clases de JDBC, que nos permiten el acceso a la base de datos.
+
+Al final todo esto hace que el código sea bastante complicado. Ese tipo de código JDBC, a pesar 
+de que funciona bien, tiene algunos inconvenientes que han hecho que la gente piense en otras 
+alternativas. JDBC tienes dos grandes problemas que han motivado surgimiento de tecnologías 
+como Hibernate y JPA.
+
+[05:24] El primer problema es que el código es demasiado detallado, por ejemplo para guardar 
+un producto en la base datos necesitamos al menos unas 30 líneas de código. En un código tan 
+grande el mantenimiento es bastante difícil y requiere mucho tiempo. A veces es necesario 
+ensamblar una consulta nativa desde la base de datos y el código se vuelve cada vez más complicado y difícil de entender.
+
+[05:47] Esto es un gran problema y no es el más difícil, no es el problema más grande de todos. 
+El segundo problema es el alto acoplamiento con las bases de datos. Cuando trabajamos con JDBC, 
+tenemos una acoplamiento muy grande con la base de datos.
+
+[06:00] Significa que si nosotros por ejemplo, realizamos un cambio en la base de datos como 
+el nombre de la tabla o de alguna columna cualquier otro elemento, vamos a impactar ampliamente 
+dentro de la aplicación. Tendremos que cambiar en las clases DAO y el problema es que por 
+ejemplo cuando cambiamos el nombre en la tabla productos puede ocurrir que además de existir 
+en el producto DAO, hay otras clases del dado que realicen joins con la tabla producto.
+
+[06:30] Es decir, pueden haber diferentes DAO utilizando la tabla producto y como nosotros 
+hicimos una alteración en el nombre, tendríamos que buscar todos los elementos que hacen 
+referencia a esa tabla producto y hacer este cambio de nombre.
+
+Esto nos lleva un alto acoplamiento en la base de datos. Cualquier cambio en un lado va a 
+tener un alto impacto en el otro. Estos son los dos grandes problemas que la gente comenzó a 
+notar con JDBC y debido a ello ha perfeccionado ideas sobre cómo reducir el impacto que generan 
+estos problemas. De este proceso surgió JPA.
+
+¿Cuáles son las principales desventajas de JDBC, para las cuales JPA fue creada?
+- Utilizar JDBC implica escribir código de difícil soporte: Los códigos que utilizan 
+JDBC son más verbosos y eso aumenta la dificultad de mantenimiento.
+
+-JDBC aumenta el acoplamiento del código.
+El JDBC causa un acoplamiento mayor entre el código de la aplicación y la base de datos.
+
+ * Hibernate
+ - Creado en 2001 por Gavin king, alternativa a JDBC / EJB 2, posteriormente Gavin King
+	fue contratado por Red Hat,
+ * JPA
+ - Especificacion para ORM (Object Relational Mapping) en JAVA. 
+   Relacion entre los objetos y las BD Relacional
+ - Lanzada en 2006.
+ - Version 2.0 lanzada en 2009.
+ - Hibernate 3.5.0 (2010) paso a soportar JPA 2
+
+
+Para trabajar con JPA, tenemos que elegir una de estas implementaciones, es decir no 
+podemos utilizar JPA puro, porque JPA es una capa o una abstracción únicamente. 
+Necesitamos a alguien que implemente los detalles con lo que las bibliotecas 
+como hibernate o EclipseLink hacen ese trabajo.
+
+		JPA(Java Persistence API)  <--- JPA es una capa o una abstracción únicamente. 
+		 /	|   	\
+	Hibernate   EclipseLink	 OpenJPA   <--- Implementaciones en el mercado.
+
+- ¿Cuál es la diferencia entre Hibernate y JPA?
+JPA es una especificación y Hibernate es una de sus implementaciones.
+
+- ¿ El lenguaje que utilizamos, los seres humanos, es de un más alto nivel que el 
+utilizado por las máquinas, porque no es necesario pasar tantos detalles de una 
+implementación para que complete una tarea. Recordando que JPA vino para simplificar 
+la complejidad de JDBC, en función del enunciado anterior ¿cuál sería la diferencia 
+entre JPA y JDBC ?
+- JDBC es un estándar de bajo nivel para interactuar con bases de datos. JPA es un 
+estándar de alto nivel para el mismo propósito.
+- JDBC es una API de bajo nivel, es decir, que está orientada a permitir ejecutar 
+comandos SQL directamente y procesar los resultados obtenidos.
+
+-- Creacion de proyecto tienda alura usando IDE Eclipse
+- Nuevo proyect: Seleccionar crear un proyecto simple y seleccionar donde guardar el proyecto.
+- Group id: com.latam.alura.tienda
+- Artifact id: tienda
+
+clic derecho sobre el proyecto tienda --> properties -- > Java Build Path -->libraries
+--> por defecto esta seleccionada la version JRE System Library 1.5 darle clic para 
+seleccionarla luego clic en Edit y seleccionar Workspace default JRE(jdk-17.0.4.1).
+--> clic en finish -> Apply --> Apply and Close.
+
+luego de agregar las configuraciones en el archivo pom-xml
+ <build>
+  	<plugins>
+  		<plugin>
+  		<groupId>org.apache.maven.plugins</groupId>
+  		<artifactId>maven-compiler-plugin</artifactId>
+  		<version>3.8.0</version>
+  		
+  		<configuration>
+  			<release>17</release>
+  		</configuration>
+  		
+  		</plugin>
+  	</plugins>
+  </build>
+  
+  <dependencies>
+  
+  <!-- Dpendencia de Hibernate -->
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-entitymanager</artifactId>
+  		<version>5.6.14.Final</version>
+  	</dependency>
+  	
+  	  <!-- Dpendencia de BD -->
+  	  <dependency>
+  	  	<groupId>com.h2database</groupId>
+  	  	<artifactId>h2</artifactId>
+  	  	<version>2.1.214</version>
+  	  </dependency>
+  	  
+  		
+  </dependencies>
+
+Luego de agregar las configuraciones en pom.xml dar clic derecho sobre el proyecto y 
+dar clic en maven --> clic en update proyect --> para actualizar el proyecto con las 
+configuaraciones agregadas y eliminar un pequeño error que marca
+en rojo la carpeta del proyecto.
+
+** Configuraciones y EntityManager
+- Archivo Persistence.XML
+Crear carpeta(folder) llamada META-INF en src/main/resources
+Ya creada la carpeta META-INF seleccionarla luego clic en el menu archivo o file--> new -->
+-> Other --> buscar y deplegar la carpeta XML y seleccionar XML File --> y clic
+en Next --> y agregamos el nombre al archivo como: persistence.xml  --> clic en
+Finish. luego abrir el archivo persistence.xml y en la pestaña de Source -->
+definir configuracion y code para agregar la BD.
+
+-- ¿Cuál es el propósito de la etiqueta en el archivo persistence.xml?
+- Agrupar las configuraciones de una unidad de persistencia, que representa 
+una base de datos utilizada por la aplicación
+- Ese es justamente el objetivo de la tag <persistence-unit>.
+
+
+* Luego de haber creado el archivo persistence.xml, crearemos la primera entidad 
+dentro del package <<com.latam.alura.tienda.modelo>> con el nombre <<Producto>>
+
+*** Mapeando una entidad #1
+- Tablas /Entidades
+
+Productos
+--------------------
+id bigint
+Nombre varchar
+Descripcion varchar
+Precio decimal
+
+	ORM
+* Tabla == Clases
+* Columnas == Atributos
+* Filas == Objetos
+
+Ir a la carpeta principal src/main/java y crear una clase llamada Producto.
+Agregar en Source folder: com.latam.alura.tienda.modelo para crear la estructura
+ y la clase Producto se guarde en la carpeta modelo.  O otra forma es seleccionar
+src/main/java y crear un nuevo paquete llamado: com.latam.alura.tienda.modelo y
+dentro de este paquete guardar la clase Producto.
+
+Hibernate y JPA, ellos realizan un mapeamento de los elementos existentes en 
+nuestra clase para compararlos con el modelo en la base de datos, entonces por 
+default Hibernate entiende y JPA, entiende que el nombre de la clase es el mismo
+ nombre que existe para la tabla.
+
+-- ¿Cuál es la mejor definición de una entidad en JPA?
+Es una clase que hace el mapeamiento de una tabla del banco de datos.
+Una entidad JPA funciona como un espejo de una tabla en el banco de datos.
+
+
+-- Propiedades del archivo Persistence
+De las opciones abajo seleccione las 2 propiedades obligatorias.
+- Necesitamos un driver que nos permita realizar la conexión con la base de datos.
+<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+
+- La url le indica a la api donde se encuentra almacenada la base de datos.
+<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:tienda"/>
+
+** Persistiendo una entidad 
+Vamos a crear una clase main donde vamos a instanciar el modelo <<Producto>> y 
+el <<EntityManager> que nos va a permitir comunicarnos con la base de datos
+
+Seleccionamos el proyecto tienda y clic en crear una nueva clase, el nombre de la
+clase es: RegistroDeProducto y el package es: com.latam.alura.tienda.prueba
+Otra forma era: Seleccionar tienda y crear un package llamada: 
+com.latam.alura.tienda.prueba y dentro de este paquete crear la clase: RegistroDeProducto
+
+- ¿Cuándo debemos iniciar y comitar una transacción al persistir una unidad?
+Al realizar operaciones de escrita en la base de datos, como insert, update y delete.
+Operaciones de escrita exigen el uso de transacciones.
+
+- En esta lección, aprendiste:
+Cómo configurar JPA a través del archivo de persistencia.xml;
+Cómo mapear entidades JPA;
+Cómo utilizar EntityManager para conservar entidades en la base de datos.
+
+03 - Mapeando Entidades
+-- Organizando el codigo
+en la carpeta tienda crear una clase llamada ProductoDao y establecer el paquete com.latam.alura.tienda.dao
+
+-- Mas mapeamientos
+- ¿Cuáles tipos de atributos podemos mapear sin la necesidad de configuraciones adicionales vía anotaciones JPA?
+Los tipos primitivos, atributos del tipo String y algunas clases de Java, como LocalDate y BigDecimal.
+Esos tipos pueden ser mapeados automáticamente, sin la necesidad de configuraciones adicionales.
+
+--Mapeando Relacionamientos:
+ - Aprendimos a utilizar la anotación @ManyToOne para indicar la cardinalidad de una relación. 
+Cual es la cardinalidad default asumida por JPA, en el caso de un atributo que representa 
+una relación y no tiene anotaciones?
+Es obligatorio agregar alguna anotación de cardinalidad en todos los atributos que representan relaciones.
+PA no asume una cardinalidad default cuando no colocamos anotaciones.
+
+
+ Producto		 
+-------------			  categoria
+id  bigint			  ------------
+categoria_id int --@ManyToOne-->  id  bigint    --@ManyToOne  Muchos producto tienen una categoria
+name  varchar			  name varchar
+descripcion varchar
+precio  varchar		
+
+
+04 -Ciclo de vida de una entidad
+
+-- Sincronizando datos:
+¿Cuál de las siguientes opciones permite actualizar los registros existentes en la base de datos?
+
+1:El método commit sincroniza los datos con la base de datos de forma definitiva.
+em.getTransaction().begin();
+em.persist(producto);
+producto.setDescripcion (“Teste 1”);
+em.getTransaction().commit();
+
+2:El método flush sincroniza los datos con la base de datos y permite realizar un roll back en caso de errores.
+em.getTransaction().begin();
+em.persist(producto);
+producto.setDescripcion (“Teste 1”);
+em.flush();
+
+-- Update de la entidad
+- Analice el siguiente código y diga cual es el resultado esperado:
+
+em.getTransaction().begin();
+Producto producto = em.find(Producto.class, 1l);
+producto.setDescripcion(“Test 1”);
+em.flush();
+producto.setDescripcion(“Test 2”);
+em.merge(producto);
+producto.setDescripcion(“Test 3”);
+em.getTransaction().commit();
+em.close();
+
+Respuesta: La entidad producto se actualizará en la base de datos con la descripción Teste 3.
+En el código anterior, merge acabó siendo indiferente, pues la entidad ya estaba en estado Managed.
+
+-¿Cuál es la finalidad del método merge?
+Traer los registros deseados con estado managed.
+Pero en una diferente ubicación en memoria, por lo que tenemos que reasignar la variable que se encuentra como detached.
+
+- Estado Delete en la entidad:
+Analice el siguiente código e indique cuál es el resultado esperado:
+
+em.getTransaction().begin();
+Producto producto = em.find(Producto.class, 1l);
+producto.setDescripcion(“Teste 1”);
+em.flush();
+em.clear();
+em.remove(producto);
+em.getTransaction().commit();
+em.close();
+
+Respuesta: Una exception será lanzada al tentar remover la entidad producto.
+La entidad producto estaba en estado Detached al ser removida, algo que JPA no permite.
+
+
+Para eso vimos el esquema gráfico donde comenzamos por el estado transiente que tiene una entidad 
+al ser instanciada, luego pasamos al estado Managed utilizando el método persist() de JPA hasta 
+el momento que sincronizamos la información con la base de datos utilizando el método 
+flush() o commit() de JPA.
+
+Estas transiciones de estados fueron realizadas en el DAO (Data Access Object) de la clase 
+Producto y de la clase Categoria donde configuramos los métodos para persistir una entidad, 
+para actualizar o modificar una entidad ya existente o para eliminar un registro de la base 
+de datos. Nuestro DAO para la clase producto quedó de la siguiente forma 
+al igual que para categoría:
+
+
+public class ProductoDao {
+
+    private EntityManager em;
+
+    public ProductoDao(EntityManager em) {
+        this.em = em;
+    }
+
+    public void guardar(Producto producto) {
+        this.em.persist(producto);
+    }
+
+    public void actualizar(Producto producto) {
+        this.em.merge(producto);
+    }
+
+    public void remover(Producto producto) {
+        categoria=this.em.merge(producto);
+        this.em.remove(producto);
+    }
+
+}
+
+
+05 -  Consultas con JPQL
+-- Consultando Entidades 
+
+
+https://github.com/alura-cursos/JPA-hibernate-Alura/tree/stage-final
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
