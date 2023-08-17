@@ -2,6 +2,7 @@ package com.latam.alura.tiendav2.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -38,12 +39,19 @@ public class Pedido {
 	*/
 	
 	//Forma de relacionar 2 tablas con relacion muchos a muchos. Necesidad de crear una nueva tabla en la cual se le agregar otros atributos aparte de los id  de las tablas a unir.	
-	@OneToMany //Del otro lado colocamos: ManyToOne entonces aqui va OneToOne  -- Si eliminamos el One en amabas queda: ManyToToMany (muchos a muchos) :    [ ManyToOne OneToMany (eliminando el One en ambas) ManyToToMany(muchos a muchos) ]
-	private List<ItemsPedidos> items; //Siempre que tengamos una lista es OneToMany o es un elemento que termina en ToMany. 
+	@OneToMany(mappedBy = "pedido") //Del otro lado colocamos: ManyToOne entonces aqui va OneToOne  -- Si eliminamos el One en amabas queda: ManyToToMany (muchos a muchos) :    [ ManyToOne OneToMany (eliminando el One en ambas) ManyToToMany(muchos a muchos) ]
+	//mappedBy = "pedido" sirve para indicarle que la lista se encuentra mapeada por el elemento pedido existente en la entidad items_pedido. //Con esto conectamos esta lista con items_pedido.
+	private List<ItemsPedido> items = new ArrayList<>(); //Siempre que tengamos una lista es OneToMany o es un elemento que termina en ToMany. //con: = new ArrayList<>() inicializamos la lista para que sea una lista vacia ya sin esto seria una lista nula.
 	
 	
 	//Constructor sin parametros
 	public Pedido() {
+	}
+	
+	//Agregar valores a la lista itemsPedido.
+	public void agregarItems(ItemsPedido item) {
+		item.setPedido(this);  //el item debe de estar relacionado con el pedido por lo que le pasamos el pedido
+		this.items.add(item);
 	}
 	
 	//Constructor con parametro cliente. El id, fecha no se agrego por serán generados automaticamente por eso no es necesario crearlos en el constructor y el valor será calculado.

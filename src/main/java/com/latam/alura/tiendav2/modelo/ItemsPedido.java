@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "items_pedido")
-public class ItemsPedidos {
+public class ItemsPedido {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,13 +35,14 @@ public class ItemsPedidos {
 	 * a un cliente con muchos pedidos o un producto con una categoría que pertenece a muchos productos. 
 	 */
 	
-	public ItemsPedidos() {
+	public ItemsPedido() {
 	}
 
-	public ItemsPedidos(int cantidad, Producto producto, Pedido pedido) {
+	public ItemsPedido(int cantidad, Producto producto, Pedido pedido) {
 		this.cantidad = cantidad;
 		this.producto = producto;
 		this.pedido = pedido;
+		this.precioUnitario = producto.getPrecio();
 	}
 	
 	//Getters and Setters
