@@ -44,6 +44,15 @@ public class RegistroDePedido {
 		pedidoDao.guardar(pedido); //Guardamos el pedido
 		em.getTransaction().commit(); //Realizamos un commit este permite sincronizar los valores con la BD
 		
+		// Valor total vendido
+		BigDecimal valorTotal = pedidoDao.valorTotalVendido();
+		System.out.println("Valor Total: "+ valorTotal); //Imprime el valor total vendido
+		
+		//Valor maximo vendido
+		BigDecimal valorMax = pedidoDao.valorMAXVendido();
+		System.out.println("Valor MAX: "+ valorMax); //Imprime el valor total vendido
+		
+		
 		
 		JPAUtils.closeEntityManager(em); //cierra la conexion a la BD
 		

@@ -190,7 +190,33 @@ la base de datos o en todos los casos, que es el que me interesa.
 en items_pedido.
 
 
+- ¿Cuál es el uso del parámetro cascade?
+Cascade crea un efecto dominó en las operaciones realizadas en una entidad.
+Propagar las operaciones realizadas en una entidad en su relación.
 
+En esta aula, aprendiste:
+- Mapeo de nuevas entidades en la aplicación según el modelado de la base de datos.
+- Mapeo de una relación con cardinalidad de muchos a muchos.
+- Mapeo de una relación bidireccional.
+- Cómo persistir entidades que tienen relaciones bidireccionales.
+
+
+02 - Consultas Avanzadas
+*** Funciones de Agregacion SQL
+Vamos a realizar consultas un poco más avanzadas que nos van a permitir aplicar las funciones 
+de agregación. Las funciones de agregación son aquellas que recorren todos los elementos en la 
+tabla y realizan una operación en conjunto.
+
+------------------------------------------------------------------------------------------
+				Funciones de Agregado
+------------------------------------------------------------------------------------------
+Funcion	|				Descripcion
+  AVG 	| Utilizada para calcular el promedio de los valores de un campo determinado.
+  COUNT	| Utilizada para devolver el numero de registros de la seleccion.
+  SUM	| Utilizada para devolver la suma de todos los valores de un campo determinado.
+  MAX   | Utilizada para devolver el valor mas alto de un campo especificado.
+  MIN 	| Utilizada para devolver el valor mas abajo de un campo especificado.
+------------------------------------------------------------------------------------------
 
 
 

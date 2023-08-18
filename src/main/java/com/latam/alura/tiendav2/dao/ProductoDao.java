@@ -54,7 +54,7 @@ public class ProductoDao {
     }
     
     //Consulta por Nombre
-    public List<Producto> consultaPorNombre(String nombre){
+    public List<Producto> consultaPorNombre(String nombre){ //enviamos el nombre a buscar
     	String jpql = " SELECT P FROM Producto AS P WHERE P.nombre=:nombre"; //si queremos agregar mas parametros a buscar seria asi:  (WHERE  P.nombre=:nombre AND P.descripcion=:descripcion";
     	//return em.createQuery(jpql).setParameter("nombre", nombre).getResultList(); // recibe la posicion("nombre") y se le envia la variable(nombre) que contiene la palabra a buscar, y obtiene una lista de resultados.  funciona sin enviarle el tipo de retorno Producto.class donde va la consulta. Funciona pero marca alerta.
     	return em.createQuery(jpql,Producto.class).setParameter("nombre", nombre).getResultList(); //se envia la consulta jpql, y el tipo de retorno(Producto.class), setParameter envia los parametros la posicion"nombre" y la variable a buscar nombre y como resultado devuelve una lista de resultados.
@@ -62,7 +62,7 @@ public class ProductoDao {
     
     //Consulta por nombre de Categoria  
     public List<Producto> consultaPorNombreDeCategoria(String nombre){
-    	String jpql="SELECT p FROM Producto AS p WHERE p.categoria.nombre=:nombre";
+    	String jpql="SELECT p FROM Producto AS p WHERE p.categoria.nombre=:nombre"; //el nombre de la tabla debe estar escrito como definimos el nombre de la Clase Producto.  
     	//return em.createQuery(jpql).setParameter("nombre", nombre).getResultList(); //Funciona sin enviarle donde esta la consulta jpql el tipo de retono Producto, pero marca una alerta.
     	return em.createQuery(jpql, Producto.class).setParameter("nombre", nombre).getResultList(); //se envia la consulta jpql, y el tipo de retorno(Producto), setParameter envia los parametros la posicion"nombre" y la variable a buscar nombre y como resultado devuelve una lista de resultados.
         
@@ -70,7 +70,7 @@ public class ProductoDao {
     
     //Consulta del precio por nombre del producto
     public BigDecimal consultarPrecioPorNombreDeProducto(String nombre) {
-    	String jpql="SELECT P.precio FROM Producto AS P WHERE P.nombre=:nombre"; //P.precio seleccionar el precio de P.nombre donde sea igual al nombre dado
+    	String jpql="SELECT P.precio FROM Producto AS P WHERE P.nombre=:nombre"; //P.precio seleccionar el precio de P.nombre donde sea igual al nombre dado - //el nombre de la tabla debe estar escrito como definimos el nombre de la Clase Producto.
     	return em.createQuery(jpql,BigDecimal.class).setParameter("nombre", nombre).getSingleResult(); //Se le envia la consulta jpql y el tipo de retorno BigDecimal, y retorna un resultadoUnico.
     }
     
