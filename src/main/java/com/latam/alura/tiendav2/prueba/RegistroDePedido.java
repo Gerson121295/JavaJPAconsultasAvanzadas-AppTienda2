@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.latam.alura.tiendav2.dao.CategoriaDao;
+import com.latam.alura.tiendav2.dao.ClienteDao;
 import com.latam.alura.tiendav2.dao.PedidoDao;
 import com.latam.alura.tiendav2.dao.ProductoDao;
 import com.latam.alura.tiendav2.modelo.Categoria;
@@ -30,6 +31,7 @@ public class RegistroDePedido {
 		
 		Producto producto = productoDao.consultaPorId(1l); //id 1
 		
+		ClienteDao clienteDao = new ClienteDao(em);
 		PedidoDao pedidoDao = new PedidoDao(em); //instanciar PedidoDao
 		
 		Cliente cliente = new Cliente("Luis", "k6757kjb");
@@ -37,6 +39,8 @@ public class RegistroDePedido {
 		pedido.agregarItems(new ItemsPedido(5,producto,pedido));
 		
 		em.getTransaction().begin(); //comenzar la tranzaccion
+		
+		clienteDao.guardar(cliente);
 		pedidoDao.guardar(pedido); //Guardamos el pedido
 		em.getTransaction().commit(); //Realizamos un commit este permite sincronizar los valores con la BD
 		

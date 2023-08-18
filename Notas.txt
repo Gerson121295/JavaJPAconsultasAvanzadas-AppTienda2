@@ -88,7 +88,7 @@ donde voy a almacenar esa información.
 
 [01:52] Entonces voy a buscar acá la carpeta, sería la carpeta JPA. Voy a copiar la ruta 
 que sería usuarios\públicos\Alura\jpa 
-(C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD)  //solo agregar la ruta
+(C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BDTienda\database)  //solo agregar la ruta
 luego ir de vuelta a mi archivo de persistence.xml voy 
 a reemplazar la parte de "mem:tienda" por la ruta donde voy a guardar mi archivo y la BD.
 	
@@ -108,7 +108,7 @@ nueva base de datos(create new database).
 y el restante las carpetas del directorio.
 
 	---------   H2 Console  ----------
-	Database path: C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD\database    //pegar la ruta de la carpeta que almacenara la data de la BD //y escribimos el nombre de la BD \database
+	Database path: C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BDTienda\database    //pegar la ruta de la carpeta que almacenara la data de la BD //y escribimos el nombre de la BD \database
 	Username:	sa
 	password:	admin
 	password confirmation: admin
@@ -126,11 +126,15 @@ y seleccionamos connect.
 	Configuraciones guardadas:  Generic H2(Embedded)	
 	Nombre de la configuración: Generic H2(Embedded)	
 	Controlador: 	org.h2.Driver
-	URL JDBC: 	jdbc:h2:C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD\database
+	URL JDBC: 	jdbc:h2:C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BDTienda\database
 	Nombre de usuario: 	sa
 	Contraseña: 	admin
 		Conectar	Probar la conexion
 	----------------------------------
+
+-Revisamos la consola de H2 y ya tendremos creadas las tablas en base a nuestras clases de la
+ app en java, bien ahora cerramos la BD de la consola buscamos el icono de la BD H2 en la barra
+de tareas y le damos clic derecho y clic en exit.
 
 - ¿Por qué se debe usar el parámetro mappedBy en la anotación @OneToMany?
    Para indicar que se trata de una relación bidireccional.
@@ -143,8 +147,47 @@ Seleccionar o marcar: Forward, All. Opcions: Case sensitive, Wrap search, Whole 
 Replace All y clic en Close.
 
 
+- Test de relacionamiento bidireccional #2
+[00:00] Hola. En la parte anterior, nosotros intentamos guardar un pedido y nos encontramos con 
+el siguiente error. El pedido, el objeto pedido hace referencia a un objeto que no ha sido 
+salvado y que tiene un estado transiente. Entonces, recordando del primer curso, cuando 
+nosotros intentamos guardar un producto que tenía dentro de sus atributos la entidad categoría, 
+y esa categoría no había sido guardada en la base de datos anteriormente, no nos arrojaba el 
+error de estado transiente.
 
+[00:30] Entonces nosotros tuvimos que crear un Dao para la categoría, para poder corregir ese 
+error. Entonces, en teoría nosotros tenemos que crear un Dao para todos los elementos que sean 
+guardados en las bases de datos. Y cuando nosotros tenemos un elemento que recibe otro como 
+atributo, él nos arroja ese error del estado transiente.
 
+[00:55] Recordando del primer curso, los estados son transientes cuando es instanciado, manage 
+cuando persistimos o cuando usamos el método guardar del EntityManager. Cuando realizamos el 
+commit sincronizamos y cuando realizamos el close de ese EntityManager, nosotros pasamos a 
+ese estado, un estado detached o separado, que es similar al estado transiente.
+
+--- Revisamos console H2 BD para ver si los registros fueron guardados ---
+
+[04:05] En productos, Xiaomi, correcto. Ahora vamos a ver si agregó el cliente, el cliente, 
+Juan, el id, identidad el DNI. Perfecto. Vamos a ver los pedidos. En pedido agregó el ID, 
+la fecha y el cliente ID número 1, que es el cliente Juan. El valor total está como nulo. 
+Vamos a tener que corregir ese error, pues no puede aparecer nulo.
+
+[04:33] V vamos a limpiar acá y vamos a ver qué apareció en items_pedido. No agregó nada de 
+items_pedido. Entonces. En teoría, la intuición nos dice que tenemos que crear un Dao para 
+items_pedido. Cerramos esa base de datos. Pero no tenemos que crear un nuevo Dao.
+
+[04:53] Hay una propiedad en la notación OneToMany que nos permite que a la hora de realizar 
+una acción en la entidad pedido, realice esa acción en cascada para la entidad que está 
+relacionada, que en este caso sería la entidad items_pedido. Entonces esa propiedad se llama 
+cascade.
+
+[05:15] Y el tipo cascade=CascadeType, tenemos una serie de opciones. Esa alteración en cascada, 
+esa acción en cascada puede ocurrir cuando yo elimine un archivo de pedido, cuando yo guarde 
+por primera vez un archivo en pedido, cuando actualice, cuando hago el merge que lo traigo de 
+la base de datos o en todos los casos, que es el que me interesa.
+
+[05:43] Entonces, cada vez que yo realice una operación con pedido, que haga una alteración 
+en items_pedido.
 
 
 

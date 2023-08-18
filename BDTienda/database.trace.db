@@ -1,0 +1,4 @@
+2023-08-18 11:01:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "select * [*]categorias"
+Syntax error in SQL statement "select * [*]categorias"; SQL statement:
+select * categorias [42000-220]
