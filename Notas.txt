@@ -88,7 +88,7 @@ donde voy a almacenar esa información.
 
 [01:52] Entonces voy a buscar acá la carpeta, sería la carpeta JPA. Voy a copiar la ruta 
 que sería usuarios\públicos\Alura\jpa 
-(C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD\database)
+(C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD)  //solo agregar la ruta
 luego ir de vuelta a mi archivo de persistence.xml voy 
 a reemplazar la parte de "mem:tienda" por la ruta donde voy a guardar mi archivo y la BD.
 	
@@ -132,8 +132,15 @@ y seleccionamos connect.
 		Conectar	Probar la conexion
 	----------------------------------
 
+- ¿Por qué se debe usar el parámetro mappedBy en la anotación @OneToMany?
+   Para indicar que se trata de una relación bidireccional.
+   Sin este parámetro, JPA considera que es otra relación, asumiendo que hay otra tabla de unión.
 
 
+	Remplazar todo los texto iguales a producto por pedido se usar:
+ctrl + f  --> Find: producto -> Replace with: pedido -> 
+Seleccionar o marcar: Forward, All. Opcions: Case sensitive, Wrap search, Whole word y clic en
+Replace All y clic en Close.
 
 
 
