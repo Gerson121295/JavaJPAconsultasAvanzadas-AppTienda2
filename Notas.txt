@@ -243,6 +243,83 @@ En esta aula, aprendiste:
 - Realización de consultas mediante consultas con nombre.
 
 
+*** #03 Performance de Consultas
+
+-- Entendiendo Lazy / Eager
+Con fines de practica:
+Nosotros en esta parte cargamos unos registros desde unos archivos de texto, con una clase que 
+importa utilizar instancia los Dao y lee esos archivos de texto para cargarlos en la base de 
+datos. Nosotros creamos una clase main para realizar nuestras pruebas de desempeño, cargamos 
+todos nuestros registros, instanciamos el EntityManager.
+
+- Se creo la clase LoadRecords.java en la carpeta Prueba
+- Se creo la Carpeta Utils con los archivos .txt categoria, cliente, producto en carpeta src/main/resources
+- Se creo la clase PruebaDeDesempeño.java en la carpeta Prueba.
+
+Analisis:
+Ahora vamos a ir a la clase pedido para ver por qué realizó un join. Entonces, nosotros vemos 
+que el atributo cliente tiene la anotación ManyToOne. Todos los elementos que tengan la anotación 
+del tipo ToOne, ya sean ManyToOne o OneToOne. tienen una estrategia de cargamento que se es del 
+tipo eager, una estrategia de cargamento anticipada.
+
+[04:02] Es decir, siempre que nosotros instanciemos una entidad, llamemos una tabla de la base 
+de datos, y que uno de sus atributos, en este caso es cliente, tenga la notación del tipo ToOne, 
+o sea, OneToOne, ManyToOne, él va a ser un join con todos los atributos que tengan esas 
+notaciones.
+
+[04:22] Entonces si lo tengo acá cinco atributos del tipo ManyToOne, él va a realizar un join 
+con esas cinco entidades a pesar de que nosotros no las estemos utilizando. Si nosotros 
+ejecutamos nuevamente, aquí tenemos que cerrar la base de datos, vamos a ejecutar nuevamente, 
+vemos que los items no realizó item con los items del pedido, a pesar de que tienen la notación 
+OneToMany.
+
+[05:01] Eso es porque todas las anotaciones que sean de tipo ToMany, ya sea ManyToMany o 
+OneToMany, tienen la estrategia de cargamentos del tipo lazy o cargamento perezoso.
+ Nosotros vamos a traer ese recurso únicamente cuando sean solicitadas. 
+
+[07:03] Entonces imagina, cada vez que si dentro de ese producto, vamos a ejecutar de nuevo, 
+él realizó un join con cliente, que se encuentra dentro de la tabla pedido, nosotros llamamos al 
+atributo item para determinar el tamaño de esa lista, lo trajo de la entidad items_pedido, 
+realizó un join con la entidad producto y un join con la entidad categoría, pero esa entidad 
+no se encuentra en items_pedido.
+
+[07:44] Esa entidad se encuentra en producto. Entonces sí hubiese otra, si dentro de categoría 
+hubiese otro atributo con la anotación ManyToOne también sería instanciada, también sería llamada 
+con un join. Entonces imagínate cuántas veces nosotros podemos extender esa cadena.
+
+[08:08] Lo que nosotros vamos a hacer para corregir ese error, ese error de desempeño, que es 
+una parte de las buenas prácticas es utilizar un atributo en la notación ManyToOne, que es el 
+atributo fetch=FetchType.LAZY. Si vemos acá, nosotros tenemos dos tipos, el tipo lazy del tipo 
+eager.
+
+[08:36] Para las anotaciones del tipo ManyToOne, nosotros vamos a utilizar el cargamento o la 
+estrategia de cargamento del tipo lazy o perezoso, que nos va a permitir llamar los elementos 
+de cliente únicamente cuando sean solicitados. Ya los elementos del tipo OneToMany o ManyToMany, 
+ellos por default ya son del tipo lazy.
+
+ resumiendo, en la entidad pedido nosotros tenemos dos tipos de notaciones, tenemos la notación 
+ManyToOne y la anotación OneToMany. Todas las anotaciones que sean del tipo ToOne, OneToOne o 
+ManyToOne por default son del tipo eager. Quiere decir que ellos tienen un cargamento anticipado.
+
+[12:02] Van a ser cargados a pesar de que los datos no sean requeridos en esa consulta. Y todos 
+los elementos que sean del tipo ToMany, ManyToMany o OneToMany ellos van a ser cargados 
+únicamente cuando sean requeridos dentro de nuestra consulta.
+
+[12:22] Eso fue establecido así en JPA, porque generalmente los elementos del tipo ToMany son 
+listas y para evitar que se sature la memoria, el estándar y el lazy para los elementos del 
+tipo ToMany, como OneToMany o ManyToMany. Entonces, sin embargo, al nosotros colocar esta 
+anotación del tipo lazy, nosotros podemos generar algunos problemas dentro de nuestra aplicación, 
+es lo que vamos a hablar más adelante, y vamos a ver cómo se resuelven esos problemas.
+
+
+
+
+
+
+
+
+
+
 
 
 

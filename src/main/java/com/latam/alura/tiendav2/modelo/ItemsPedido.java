@@ -3,6 +3,7 @@ package com.latam.alura.tiendav2.modelo;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,10 +21,15 @@ public class ItemsPedido {
 	private BigDecimal precioUnitario;
 	
 	//Relaciones
-	@ManyToOne //
+	
+	/* Por motivo de Rendimiento.	 
+	 Todos los elementos del tipo ManyToMany por default son eager, trae todos los elementos y si dentro de ese tributo hay otros elementos del tipo ManyToOne también los va a traer. Por lo que hay que agregarle LAZY cargamento perezoso.
+	 Ya los elementos del tipo OneToMany o ManyToMany, ellos por default ya son del tipo lazy.	 
+	 */
+	@ManyToOne(fetch=FetchType.LAZY)//con Fetch le indicamos a la app que traeremos esos recursos cuando sea necesario.
 	private Producto producto;
 	
-	@ManyToOne //
+	@ManyToOne(fetch=FetchType.LAZY) //con Fetch le indicamos a la app que traeremos esos recursos cuando sea necesario.
 	private Pedido pedido;
 	
 	//Cada ves que se instancia un itemspedido:

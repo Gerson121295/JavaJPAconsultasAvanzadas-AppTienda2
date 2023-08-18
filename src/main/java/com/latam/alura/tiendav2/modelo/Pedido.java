@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,10 +27,26 @@ public class Pedido {
 	private LocalDate fecha = LocalDate.now(); //= LocalDate.now()  Para que al crear o instanciar un pedido se agregue automaticamente la fecha.
 	private BigDecimal valorTotal = new BigDecimal(0); //valorTotal; estaba nulo por lo que se debio inicializar: valorTotal = new BigDecimal(0); 
 	
-	@ManyToOne  //Muchos a uno.  
+	/*
+	 Debido a que Todos los elementos que tengan la anotación del tipo ToOne, ya sean ManyToOne o OneToOne. tienen una estrategia de cargamento que es del 
+	 tipo eager, una estrategia de cargamento anticipada.
+	 Es decir, siempre que nosotros instanciemos una entidad, llamemos una tabla de la base de datos, y que uno de sus atributos, en este caso es cliente, tenga la notación del tipo ToOne, 
+	o sea, OneToOne, ManyToOne, él va a ser un join con todos los atributos que tengan esas notaciones.
+	Entonces si lo tengo acá cinco atributos del tipo ManyToOne, él va a realizar un join con esas cinco entidades a pesar de que nosotros no las estemos utilizando.
+
+	 Para corregir error de desempeño, y es parte de las buenas prácticas es utilizar un atributo en la notación ManyToOne, que es el atributo fetch=FetchType.LAZY.	
+	 Para las anotaciones del tipo ManyToOne, nosotros vamos a utilizar el cargamento o la estrategia de cargamento del tipo lazy o perezoso, que nos va a permitir llamar los elementos de cliente únicamente cuando sean solicitados.  
+	 */	
+	@ManyToOne (fetch=FetchType.LAZY) //Muchos a uno. //tipo lazy o cargamento perezoso.  
 	private Cliente cliente;  //1 cliente tiene muchos pedidos
 	
-
+	/*	 
+	 Entonces, todos los elementos del tipo ManyToMany por default son eager, trae todos los elementos y si dentro de ese tributo hay otros elementos del tipo ManyToOne también los va a traer. Por lo que hay que agregarle LAZY cargamento perezoso.
+	 Ya los elementos del tipo OneToMany o ManyToMany, ellos por default ya son del tipo lazy.	 
+	 //con Fetch le indicamos a la app que traeremos esos recursos cuando sea necesario.
+	 */
+	
+	
 	//Relacion con: Pedidos --> Productos (muchos a muchos): Un pedido puede tener múltiples productos y esos múltiples productos pueden encontrarse en muchos pedidos.
 	// Cuando tenemos una relacion Muchos a muchos generamos una nueva tabla. Seria pedidos uno --a-> muchos items_pedido(nueva tabla) y de esta va de muchos --a-> uno con productos.
 	
@@ -50,6 +67,7 @@ public class Pedido {
  	cascade=CascadeType.ALL  - Cada vez que yo realice una operación con pedido, que haga una alteración en items_pedido. 
 	 */
 	
+
 	@OneToMany(mappedBy = "pedido", cascade=CascadeType.ALL) //Del otro lado colocamos: ManyToOne entonces aqui va OneToOne  -- Si eliminamos el One en amabas queda: ManyToToMany (muchos a muchos) :    [ ManyToOne OneToMany (eliminando el One en ambas) ManyToToMany(muchos a muchos) ]
 	//mappedBy = "pedido" sirve para indicarle que la lista se encuentra mapeada por el elemento pedido existente en la entidad items_pedido. //Con esto conectamos esta lista con items_pedido.
 	private List<ItemsPedido> items = new ArrayList<>(); //Siempre que tengamos una lista es OneToMany o es un elemento que termina en ToMany. //con: = new ArrayList<>() inicializamos la lista para que sea una lista vacia ya sin esto seria una lista nula.
@@ -97,6 +115,14 @@ public class Pedido {
 	}
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<ItemsPedido> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemsPedido> items) {
+		this.items = items;
 	}
 	
 	

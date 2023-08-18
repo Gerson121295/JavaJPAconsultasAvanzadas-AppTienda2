@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,13 @@ public class Producto { //El nombre de la clase tiene que ser igual que la tabla
 	private LocalDate fechaDeRegistro=LocalDate.now(); //El método estático LocalDate.now, con eso nosotros aseguramos que al ser instanciado el producto se esté guardando la fecha actual en la que se está instanciando.
 	
 	//@Enumerated(EnumType.STRING) //No se uso enum ahora es clase categoria - Elemento tipo Enumerador para categoria. Vamos a guardar la palabra como string. Usamos la anotación de JPA @Enumerate. Esa anotación tiene un parámetro (EnumType) del tipo string. Ella una serie de valores y nosotros vamos a usar el string, que nos va a permitir guardar la palabra que está siendo registrada en el enumerador. //Con esto guarda la palabra y no la posicion de la palabra en el arreglo.
-	@ManyToOne //Muchos productos tienen una unica categoria. - Con esto relacionamos la entidad producto con Categoria
+	/*
+	 * Por motivo de Rendimiento.	 
+	 Todos los elementos del tipo ManyToMany por default son eager, trae todos los elementos y si dentro de ese tributo hay otros elementos del tipo ManyToOne también los va a traer. Por lo que hay que agregarle LAZY cargamento perezoso.
+	 Ya los elementos del tipo OneToMany o ManyToMany, ellos por default ya son del tipo lazy.	 
+	 //con Fetch le indicamos a la app que traeremos esos recursos cuando sea necesario.
+	 */
+	@ManyToOne(fetch=FetchType.LAZY) //Muchos productos tienen una unica categoria. - Con esto relacionamos la entidad producto con Categoria
 	private Categoria categoria; //Tipo Categoria, sera una clase. //No tener creada la clase Categoria da un error entonces: Clic derecho sobre la cateroria y clic en Create enum 'Categoria'
 	
 	public Producto() { //para probar el flush de RegistroDeProducto
