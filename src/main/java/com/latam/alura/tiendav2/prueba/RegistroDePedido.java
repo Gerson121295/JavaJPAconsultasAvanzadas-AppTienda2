@@ -52,6 +52,29 @@ public class RegistroDePedido {
 		BigDecimal valorMax = pedidoDao.valorMAXVendido();
 		System.out.println("Valor MAX: "+ valorMax); //Imprime el valor total vendido
 		
+		//Promedio de venta
+		Double valorProm = pedidoDao.valorPromVendido();
+		System.out.println("Valor Promedio: "+ valorProm);
+		
+		
+		 // Consultas para relatorio
+	    
+	    /*Consulta para generar una tabla con los siguientes campos:
+	    ---------------------------------------------------------
+	    | Producto 			| Cantidad Vendida 	| Ultima Venta 	|
+	    | Celular Samsung	|		5    		|	2023-08-18	|
+	    ---------------------------------------------------------
+	    */
+		
+		List<Object[]> relatorio = pedidoDao.relatorioDeVentas();
+		for(Object[] obj: relatorio) { // variable obj de tipo Object, imprime todo de relatorio
+			System.out.println(obj[0]); //posicion 0
+			System.out.println(obj[1]);
+			System.out.println(obj[2]);
+		}
+		
+		
+		
 		
 		
 		JPAUtils.closeEntityManager(em); //cierra la conexion a la BD
