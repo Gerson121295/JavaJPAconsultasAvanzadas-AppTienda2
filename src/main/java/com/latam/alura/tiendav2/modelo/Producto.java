@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
@@ -22,6 +23,10 @@ default Hibernate entiende y JPA, entiende que el nombre de la clase es el mismo
 @Entity
 //La tabla en la BD se llama productos, si la tama se llama igual que la clase "producto" no hay necesidade de definir la tabla con @table
 @Table(name="productos") 
+
+//@NameQuery Sirve para agregar consultas a la BD Solo que que definir el metodo consultaDePrecio en ProductoDao
+@NamedQuery(name="Producto.consultaDePrecio", query="SELECT P.precio FROM Producto AS P WHERE P.nombre=:nombre")  // Producto.consultaDePrecio  - Producto(tabla a consultar), consultaDePrecio(nombre de la query)
+
 public class Producto { //El nombre de la clase tiene que ser igual que la tabla de la BD, si no es igual entonces la definimos arriba con @Table(name="productos")  - para asi, realizar el mapeamiento.
 	//Los atributos de la clase deben de ser igual que los campos de la BD. Sino, entonces se debe definir arriba del atributo de la clase, utilizar @Column(name="nombres")  - para asi, realizar el mapeamiento.
 	

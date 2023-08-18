@@ -219,8 +219,28 @@ Funcion	|				Descripcion
 ------------------------------------------------------------------------------------------
 
  -- Consultas con select new
+ -- Utilizando Named Queries
+las namedQuery que son consultas que se encuentran dentro de la entidad, entonces nosotros 
+tenemos la entidad producto y dentro de nuestra misma entidad, nosotros vamos a crear las 
+consultas que estábamos realizando en la clase Dao
 
+Por lo general, nosotros colocamos todos los accesos a la base de datos dentro del Dao. 
+En este caso particular nosotros podemos colocarlas dentro de la entidad. Entonces vemos 
+las consultas como selectPorId, consultarPorId, consultarTodos, consultarPorNombre, 
+consultarPorNombreDeCategoría y consultarPrecioPorNombreDeProducto.
 
+Las consultas anteriormente la agregamos en DAO pero en este caso las agregaremos dentro
+de la entidad o clase Producto.
+
+- ¿Cuál de las siguientes es una de las ventajas de utilizar NamedQueries?
+Acercar las consultas de una entidad a su clase.
+Las NamedQueries se declaran en la clase de entidad.
+
+En esta aula, aprendiste:
+- Realización de consultas utilizando funciones de agregación como min, max, avg y sum;
+- Cómo escribir consultas de informes usando JPQL;
+- Cómo usar el recurso seleccionado nuevo en consultas JPQL;
+- Realización de consultas mediante consultas con nombre.
 
 
 

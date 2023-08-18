@@ -80,6 +80,10 @@ public class RegistroDePedido {
 		relatorio2.forEach(System.out::println);
 		
 		
+		//Consulta Utilizando @NameQuery
+		//Consultar el precio por medio del nombre
+		BigDecimal precio = productoDao.consultaDePrecioPorNombreDelProducto("Samsung");
+		System.out.println(precio);
 		
 		JPAUtils.closeEntityManager(em); //cierra la conexion a la BD
 		

@@ -74,6 +74,12 @@ public class ProductoDao {
     	return em.createQuery(jpql,BigDecimal.class).setParameter("nombre", nombre).getSingleResult(); //Se le envia la consulta jpql y el tipo de retorno BigDecimal, y retorna un resultadoUnico.
     }
     
+    
+    //Consultas utilizando @NamedQquery definida en la entidad o clase Producto, aqui se define el metodo y alla la consulta con el Select
+    public BigDecimal consultaDePrecioPorNombreDelProducto(String nombre) {
+    	return em.createNamedQuery("Producto.consultaDePrecio",BigDecimal.class).setParameter("nombre", nombre).getSingleResult(); //Se le envia consultaDePrecio nombre de la consulta definida en la entidad o clase Producto y el tipo de retorno BigDecimal, y retorna un resultado Unico.
+    }
+    
 }
 
 
