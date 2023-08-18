@@ -17,9 +17,10 @@
         <properties>
         
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-    		<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:tienda"/>
+    		<!--  <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:tienda"/> --> <!-- Reemplar mem:tienda por la ruta de la carpeta donde estara almacenada la data de la BD -->
+    		<property name="javax.persistence.jdbc.url" value="jdbc:h2:C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD\database"/>
     		<property name="javax.persistence.jdbc.user" value="sa"/>
-    		<property name="javax.persistence.jdbc.password" value=""/>
+    		<property name="javax.persistence.jdbc.password" value="admin"/><!-- Agregar la contraseña de la BD si esta config Local H2 si no por defecto esta vacia -->
 
 		
 			<property name="hibernate.show_sql" value="true"/>

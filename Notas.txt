@@ -64,9 +64,87 @@ base de datos que acabamos de crear (url,usuario,password) y seleccionamos conne
 	----------------------------------
 
 
+-- Relacionamiento Bidireccional #2:
+Alura nos solicita que creásemos un modelo que nos permitiera guardar en la base de datos 
+tanto los clientes como los diversos productos solicitados por ese cliente en un cierto 
+pedido.
 
+[00:24] Entonces nosotros vamos a tener diversos clientes, que van a ser guardados en la 
+base de datos como el restante de estas entidades. Y entonces este cliente va a realizar 
+un pedido, y ese pedido tiene que tener una cierta cantidad de productos y esos productos 
+los vamos a almacenar dentro de una nueva entidad que se va a llamar items_pedido.
+
+[00:48] Adicional esos productos tienen una cierta categoría, esa categoría puede ser 
+electrónico, puede ser libros, puede ser celulares. Y todas esas entidades, como estamos 
+viendo, ellas se encuentran relacionadas de la forma uno a muchos o en algunos casos de 
+muchos a muchos.
+
+Conexion a la BD de H2
+Con la finalidad de nosotros tener una mejor percepción de lo que nosotros estamos haciendo, 
+de cómo es esa construcción de las tablas, vamos a modificar la ruta de la base de datos a 
+una dentro de un archivo local, en una carpeta local para poder mostrar las tablas que se 
+están creando en todo momento. Entonces lo primero que voy a hacer es abrir la carpeta 
+donde voy a almacenar esa información.
+
+[01:52] Entonces voy a buscar acá la carpeta, sería la carpeta JPA. Voy a copiar la ruta 
+que sería usuarios\públicos\Alura\jpa 
+(C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD\database)
+luego ir de vuelta a mi archivo de persistence.xml voy 
+a reemplazar la parte de "mem:tienda" por la ruta donde voy a guardar mi archivo y la BD.
 	
-  
+ 
+---  Luego debo crear una BD en H2
+
+Configurar H2 para crear e ingresar la BD a utilizar:
+Para configurar la url de la base de datos vamos a ejecutar el software de h2
+Buscar el programa H2 en nuestra maquina llamado H2 Console y darle clic para ejecutarlo.
+
+Revisamos en la barra de tareas(donde estan las apps abiertas) en la parte donde esta un 
+signo de elevacion ^ donde se desplegan los iconos sobre antivirus, memoria, etc. ahi se
+encontrara el icono de H2 para la BD. Clic derecho sobre el icono H2 y clic en crear una 
+nueva base de datos(create new database).
+
+- En la ruta de la base de datos el último nombre va a ser el nombre de la base de datos 
+y el restante las carpetas del directorio.
+
+	---------   H2 Console  ----------
+	Database path: C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD\database    //pegar la ruta de la carpeta que almacenara la data de la BD //y escribimos el nombre de la BD \database
+	Username:	sa
+	password:	admin
+	password confirmation: admin
+			Clic en Create.
+	----------------------------------
+
+- Luego Ejecutar el codigo en JAVA para que se cree las tablas en la BD.
+-Reiniciar la maquina(por si no carga las tablas de la BD creada en la consola de H2)
+- Luego nos conectamos en la consola de H2 vamos a ejecutar la aplicación de h2 y modificar los 
+valores con los de la base de datos que acabamos de crear (url,usuario,password) 
+y seleccionamos connect.
+
+	Registrar 
+	----------------------------------
+	Configuraciones guardadas:  Generic H2(Embedded)	
+	Nombre de la configuración: Generic H2(Embedded)	
+	Controlador: 	org.h2.Driver
+	URL JDBC: 	jdbc:h2:C:\Users\Hp01\OneDrive\Escritorio\Cursos\Alura\JavaBackend-SpringBoot\JavaJPAConsultasAvanzadas-appTiendaV2\BD\database
+	Nombre de usuario: 	sa
+	Contraseña: 	admin
+		Conectar	Probar la conexion
+	----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
