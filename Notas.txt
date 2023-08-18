@@ -218,7 +218,7 @@ Funcion	|				Descripcion
   MIN 	| Utilizada para devolver el valor mas abajo de un campo especificado.
 ------------------------------------------------------------------------------------------
 
-
+ -- Consultas con select new
 
 
 

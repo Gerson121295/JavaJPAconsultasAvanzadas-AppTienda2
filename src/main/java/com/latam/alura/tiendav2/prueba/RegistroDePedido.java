@@ -15,6 +15,7 @@ import com.latam.alura.tiendav2.modelo.ItemsPedido;
 import com.latam.alura.tiendav2.modelo.Pedido;
 import com.latam.alura.tiendav2.modelo.Producto;
 import com.latam.alura.tiendav2.utils.JPAUtils;
+import com.latam.alura.tiendav2.vo.RelatorioDeVenta;
 
 public class RegistroDePedido {
 
@@ -73,7 +74,10 @@ public class RegistroDePedido {
 			System.out.println(obj[2]);
 		}
 		
-		
+		// Consultas para relatorio Opcion 2: utilizando la segunda estrategia, que es a través de la construcción de un VO, que significa value object.  	
+		List<RelatorioDeVenta> relatorio2 = pedidoDao.relatorioDeVentasVO();
+		//Imprimir todos los elementos que existen en este relatorio2
+		relatorio2.forEach(System.out::println);
 		
 		
 		

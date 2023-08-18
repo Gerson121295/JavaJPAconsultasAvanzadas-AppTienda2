@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.latam.alura.tiendav2.modelo.Pedido;
+import com.latam.alura.tiendav2.vo.RelatorioDeVenta;
 
 public class PedidoDao {
 
@@ -95,9 +96,26 @@ public class PedidoDao {
     }
     
     
+   // Relatorio de ventas Version 2:
+    /*	En el codigo anterior Utilizamos una estrategia en la que retornamos elementos del tipo objeto, pero ese retorno no es el más específico.
+		Nosotros tenemos que tratar de dejar nuestra aplicación bastante tipeada para indicarle cuál es el elemento de retorno que deseamos. 
+		Entonces nosotros vamos a utilizar la segunda estrategia, que es a través de la construcción de un VO, que significa value object.  	
+    */
     
-    
-    
+    public List<RelatorioDeVenta> relatorioDeVentasVO(){ //El retorno de la lista sera un retorno de Objetos
+    	String jpql = "SELECT new com.latam.alura.tiendav2.vo.RelatorioDeVenta(producto.nombre, " //producto es un token nombre es el atributo de la clase Producto  //Y aquí utilizamos la palabra clave new, que es un recurso de JPA que nos permite utilizar el lenguaje de Java dentro de nuestras consultas de SQL.
+    				+ "SUM(item.cantidad), "
+    				+ "MAX(pedido.fecha)) " //Cerramos el constructor ()
+    				//Definimos de donde traemos los datos
+    				+ "FROM Pedido pedido "
+    				+ "JOIN pedido.items item " //Concatenar pedido con items -> pedido tiene relacion con items y item es un token para obtener el dato.
+    				+ "JOIN item.producto producto " //Concatenar item con producto y producto es el token
+    				//Agrupar los datos
+    				+ "GROUP BY producto.nombre "
+    				//Ordenar los datos por la cantidad de elementos vendidos
+    				+ "ORDER BY item.cantidad DESC";
+    	return em.createQuery(jpql,RelatorioDeVenta.class).getResultList(); //Object-> devuleve un arreglo de objetos, y obtenemos una lista de resultados.
+    }
     
     
     
