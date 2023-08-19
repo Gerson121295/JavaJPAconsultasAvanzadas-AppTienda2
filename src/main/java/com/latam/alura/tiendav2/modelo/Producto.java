@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,7 +29,8 @@ default Hibernate entiende y JPA, entiende que el nombre de la clase es el mismo
 
 //@NameQuery Sirve para agregar consultas a la BD Solo que que definir el metodo consultaDePrecio en ProductoDao
 @NamedQuery(name="Producto.consultaDePrecio", query="SELECT P.precio FROM Producto AS P WHERE P.nombre=:nombre")  // Producto.consultaDePrecio  - Producto(tabla a consultar), consultaDePrecio(nombre de la query)
-
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)  //Para Conectar con la entidades(clases hijas) Electronico y libros con la entidad Producto(clase Padre). -InheritanceType.SINGLE_TABLE, nosotros creamos una única tabla con todos los atributos de la tabla producto y las clase hijas: Electronicos y Libros. Esto ayuda en el desempeño y rendimiento de la app. La desventaja es que vamos a tener una gran cantidad de elementos en una única tabla. Eso puede llegar a ser confuso.
+@Inheritance(strategy=InheritanceType.JOINED)  //Para Conectar con la entidades(clases hijas) Electronico y libros con la entidad Producto(clase Padre). -InheritanceType.JOINED, con la estrategia de Join, nosotros vamos a construir tablas separadas. De esta forma disminuye el desempeño un poco más lento a la hora de realizar la carga. Pero tenemos todos los elementos de forma más organizada y vamos a tener llaves extranjeras que dentro de las entidades libros y electrónicos identifican esa llave primaria en la entidad producto.
 public class Producto { //El nombre de la clase tiene que ser igual que la tabla de la BD, si no es igual entonces la definimos arriba con @Table(name="productos")  - para asi, realizar el mapeamiento.
 	//Los atributos de la clase deben de ser igual que los campos de la BD. Sino, entonces se debe definir arriba del atributo de la clase, utilizar @Column(name="nombres")  - para asi, realizar el mapeamiento.
 	
