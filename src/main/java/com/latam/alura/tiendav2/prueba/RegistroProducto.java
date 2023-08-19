@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import com.latam.alura.tiendav2.dao.CategoriaDao;
 import com.latam.alura.tiendav2.dao.ProductoDao;
 import com.latam.alura.tiendav2.modelo.Categoria;
+import com.latam.alura.tiendav2.modelo.CategoriaId;
 import com.latam.alura.tiendav2.modelo.Producto;
 import com.latam.alura.tiendav2.utils.JPAUtils;
 
@@ -42,7 +43,12 @@ public class RegistroProducto {
 		BigDecimal precio = productoDao.consultarPrecioPorNombreDeProducto("Samsung");
 		System.out.println(precio);
 		
+		//em.find(Categoria.class, 1l); sin el mapeamiento de llaves compuestas.
 		
+		/* //Ejemplo de prueba para Mapeamiento de llaves compuestas.
+		Categoria find = em.find(Categoria.class, new CategoriaId("CELULARES","456")); //Con el mapeamiento de llaves compuestas.
+		System.out.println(find.getNombre());
+		 */   
 	}
 
 	

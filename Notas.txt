@@ -413,8 +413,38 @@ Join table
 	atributos	atributos	atributos
 
 
+- Mapeamiento de llaves compuestas
+En esta parte vamos a hablar de unos recursos de JPA que nos va a permitir hacer referencia a 
+una entidad, a través de llaves compuestas. Entonces, nosotros aquí en la clase de categoría, 
+cuando nosotros queremos obtener una fila, que se encuentra en la base de datos, nosotros 
+utilizamos el Id que corresponde a esa fila.
 
+[00:23] Sin embargo, a veces eso no es suficiente y nosotros queremos identificar esa fila con 
+múltiples elementos, entonces serían llaves compuestas. Para eso esta notación no nos va a servir.
+ Nosotros tenemos que crear una nueva clase que va a contener esos atributos que van a servir de 
+referencia para esa fila en la entidad.
 
+Por último vamos a mostrar 3 recursos que nos permiten organizar aún mejor nuestro código.
+
+El primero es la anotación @Embeddable y @Embedded que nos permiten agrupar un conjunto de 
+atributos o propiedades dentro de otra clase que no va a ser indicada como una nueva entidad, 
+sino como una clase que va a ser inyectada dentro de nuestra clase entidad. Con esto podemos 
+agrupar atributos como dirección, datos personales, datos familiares, entre otros, sin tener 
+que colocar millones de atributos en una única clase.
+
+Solo hay que notar que al reemplazar los atributos por una clase embutida tenemos que cuidar 
+que los getter y setter así como, otros métodos continúen funcionando correctamente. 
+De lo contrario podemos delegar la función de retornar esa propiedad para la nueva clase 
+construyendo así un método delegate.
+
+En esta aula, aprendiste:
+
+- Usar anotaciones @Embeddable y @Embedded para organizar el código de una entidad;
+- Realizar herencia entre entidades con las estrategias SINGLE_TABLE y JOINED;
+- Cómo asignar una clave compuesta con la anotación @EmbeddedId.
+
+//Descargar el proyecto final.
+https://github.com/alura-cursos/JPA-con-hibernate-Alura-II/tree/stage_5
 
 
 

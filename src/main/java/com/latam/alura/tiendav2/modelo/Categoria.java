@@ -1,5 +1,6 @@
 package com.latam.alura.tiendav2.modelo;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,5 +43,30 @@ public class Categoria {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	
+	
+	//Ejemplo utilizando Mapeamiento de LLave Compuestas - Se creo Clase CategoriaId y se prueba en RegistroProducto.
+	/*
+	@EmbeddedId// vamos a definir nuestra categoriaId como llave primaria a través de la notación @EmbeddedId
+	private CategoriaId categoriaId;
+	
+	public Categoria() { //Para probar el Flush de RegistroDePersonas	
+	}
+	
+	public Categoria(String nombre) { //Para probar el Flush de RegistroDePersonas	
+		this.categoriaId=new CategoriaId(nombre,"456");
+	}
+	
+	//Getters and Setters
+	
+	public String getNombre() {
+		return categoriaId.getNombre();
+	}
+	public void setNombre(String nombre) {
+		this.categoriaId.setNombre(nombre);
+	}
+	*/
+	
 	
 } 

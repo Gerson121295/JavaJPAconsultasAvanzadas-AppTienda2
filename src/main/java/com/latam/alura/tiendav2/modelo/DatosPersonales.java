@@ -1,5 +1,7 @@
 package com.latam.alura.tiendav2.modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 /*
@@ -9,7 +11,7 @@ import javax.persistence.Embeddable;
  */
 
 @Embeddable
-public class DatosPersonales {
+public class DatosPersonales implements Serializable {
 
 	private String nombre;
 	private String dni;
