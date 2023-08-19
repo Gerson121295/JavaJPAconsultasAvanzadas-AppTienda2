@@ -366,6 +366,10 @@ En esta aula, aprendiste:
 - Cómo realizar una consulta con parámetros opcionales a través de Criteria API.
 
 
+05 - Otros Topicos
+- Simplificando entidades con Embeddable
+
+
 
 
 
