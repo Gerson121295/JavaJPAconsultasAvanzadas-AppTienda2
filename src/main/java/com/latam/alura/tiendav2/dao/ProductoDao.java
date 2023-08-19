@@ -1,9 +1,15 @@
 package com.latam.alura.tiendav2.dao;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import com.latam.alura.tiendav2.modelo.Producto;
 
@@ -79,6 +85,70 @@ public class ProductoDao {
     public BigDecimal consultaDePrecioPorNombreDelProducto(String nombre) {
     	return em.createNamedQuery("Producto.consultaDePrecio",BigDecimal.class).setParameter("nombre", nombre).getSingleResult(); //Se le envia consultaDePrecio nombre de la consulta definida en la entidad o clase Producto y el tipo de retorno BigDecimal, y retorna un resultado Unico.
     }
+    
+    //Consultas con Parametros dinamicos
+    //Queremos una lista de elemento que coincidan con los parametros dados como: nombre, precio, fecha
+    public List<Producto> consultarPorParametros(String nombre, BigDecimal precio, LocalDate fecha){
+    	StringBuilder jpql=new StringBuilder("SELECT p FROM Producto p WHERE 1=1 "); 
+    			if(nombre!= null && !nombre.trim().isEmpty()) {//Nombre no sea nulo y nombre no este vacio.
+    				jpql.append("AND p.nombre=:nombre");
+    			}
+    			if(precio!=null && !precio.equals(new BigDecimal(0))){
+    				jpql.append("AND p.precio=:precio");
+    			}
+    			if(fecha!=null){//se puede agregar que la fecha sea > o < o una fecha especifica
+    				jpql.append("AND p.fechaDeRegistro=:fecha");			
+    			}
+    			
+    			TypedQuery<Producto> query = em.createQuery(jpql.toString(),Producto.class);
+    			//Establecer los parametros.
+    			if(nombre!= null && !nombre.trim().isEmpty()) {//Nombre no sea nulo y nombre no este vacio.
+    				query.setParameter("nombre", nombre);
+    			}
+    			if(precio!=null && !precio.equals(new BigDecimal(0))){
+    				query.setParameter("precio", precio);
+    			}
+    			if(fecha!=null){//se puede agregar que la fecha sea > o < o una fecha especifica
+    				query.setParameter("fechaDeRegistro", fecha); //fecha es el nombre del parametro.			
+    			}
+    			//retorno
+    			return query.getResultList();
+    
+    }
+    
+    
+    //Consultas con Criteria API Basada en la Anterior(Consultas con Parametros dinamicos)
+    
+  //Queremos una lista de elemento que coincidan con los parametros dados como: nombre, precio, fecha
+    public List<Producto> consultarPorParametrosConAPICriteria(String nombre, BigDecimal precio, LocalDate fecha){
+			
+    		CriteriaBuilder builder =  em.getCriteriaBuilder(); //getCriteriaBuilder permite construir la consulta a lo largo del metodo
+    		CriteriaQuery<Producto> query = builder.createQuery(Producto.class);//pasarle cual va a ser el contexto de la consulta es: Producto, query es la variable que guarda.
+    		
+    		//Establecemos el FROM
+    		Root<Producto> from = query.from(Producto.class); //query.from(Producto.class) lo guardamos en la variable from
+    		
+    		//query.select(from) //para consulta
+    		
+    		Predicate filtro = builder.and(); //filtro va a estar vacio las condiciones las agrega.
+    		//condiciones
+    		if(nombre!= null && !nombre.trim().isEmpty()) {//Nombre no sea nulo y nombre no este vacio.
+    				filtro=builder.and(filtro,builder.equal(from.get("nombre"), nombre));			
+    			}
+    			if(precio!=null && !precio.equals(new BigDecimal(0))){
+    				filtro=builder.and(filtro,builder.equal(from.get("precio"), precio));	
+    			}
+    			if(fecha!=null){//se puede agregar que la fecha sea > o < o una fecha especifica
+    				filtro=builder.and(filtro,builder.equal(from.get("fechaDeRegistro"), fecha));				
+    			}
+    			
+    			query =query.where(filtro);
+    			return em.createQuery(query).getResultList();
+    
+    }
+    
+    
+    
     
 }
 

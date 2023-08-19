@@ -328,13 +328,42 @@ cargarlas siempre.
 - Buenas prácticas en la carga de entidades con relaciones;
 - Cómo realizar consultas programadas con la función de búsqueda de combinación.
 
+04 - Criteria API
+
+Analice el siguiente código:
+
+public List<Cliente> buscarClientes(String nombre, LocalDate fechaNacimiento) {
+    String jpql = "SELECT c FROM Cliente c WHERE ";
+    if (nombre != null && !nombre.trim().isEmpty()) {
+        jpql += "AND c.nombre = :nombre ";
+    }
+    if (fechaNacimiento != null) {
+        jpql += " AND c.fechaNacimiento = :fechaNacimiento ";
+    }
+    TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
+    if (nombre != null && !nombre.trim().isEmpty()) {
+        query.setParameter("nombre", nombre);
+    }
+    if (fechaNacimiento != null) {
+        query.setParameter("fechaNacimiento", fechaNacimiento);
+    }
+    return query.getResultList();
+}
+
+Resultado: 
+Se lanzará una excepción, independientemente de los parámetros ingresados.
+La consulta / querie contiene un error en la cláusula where.
 
 
+- Consultas con Criteria API #1
+¿Cuál de las siguientes es una desventaja de Criteria API?
+Código más complejo de entender y mantener.
+Criteria API hace que el código sea más difícil de entender.
 
-
-
-
-
+En esta aula, aprendiste:
+- Cómo realizar consultas JPQL con parámetros opcionales;
+- Cómo funciona la API de criterios JPA;
+- Cómo realizar una consulta con parámetros opcionales a través de Criteria API.
 
 
 
