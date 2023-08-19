@@ -311,7 +311,22 @@ tipo ToMany, como OneToMany o ManyToMany. Entonces, sin embargo, al nosotros col
 anotación del tipo lazy, nosotros podemos generar algunos problemas dentro de nuestra aplicación, 
 es lo que vamos a hablar más adelante, y vamos a ver cómo se resuelven esos problemas.
 
+es parte de las buenas prácticas que toda nuestra aplicación sea lazy, para evitar el 
+consumo excesivo de memoria y agilizar aumentar la velocidad de nuestra aplicación, ya que 
+vamos a evitar que estén siendo consultados valores o informaciones que no sean deseados 
+dentro de nuestra consulta.
 
+-- Consultas con Join Fetch
+- ¿Por qué es interesante utilizar el recurso JOIN FETCH en una consulta JPQL?
+Para evitar cargar relaciones en todas las consultas de aplicaciones.
+JOIN FETCH permite elegir qué relaciones se cargarán en una consulta determinada, en lugar de 
+cargarlas siempre.
+
+* En esta aula, aprendiste:
+- Cómo funcionan las estrategias EAGER y LAZY, en consultas de entidades que tienen relaciones;
+- Por qué JPA podría lanzar LazyInitializationException en ciertas situaciones;
+- Buenas prácticas en la carga de entidades con relaciones;
+- Cómo realizar consultas programadas con la función de búsqueda de combinación.
 
 
 

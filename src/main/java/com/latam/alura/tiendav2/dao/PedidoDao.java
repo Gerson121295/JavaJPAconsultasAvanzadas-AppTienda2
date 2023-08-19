@@ -118,9 +118,12 @@ public class PedidoDao {
     }
     
     
-    
-    
-    
+    //Debido a que se le agrego Fetch: a los @ManyToOne(que es tipo por default eager) Fetch: @ManyToOne (fetch=FetchType.LAZY) ya no se utiliza el metodo find.  
+    //si en algun momento se cerrar la conexion del EntityManayery brinda una excepcion(error),  Este seria el formato de los metodos para evitar la excepcion.
+    public Pedido consultarPedidoConCliente(Long id) {
+    	String jpgl = "SELECT p from Pedido p JOIN FETCH p.cliente WHERE p.id=:id";
+    	return em.createQuery(jpgl,Pedido.class).setParameter("id", id).getSingleResult();
+    	}
     
     
     

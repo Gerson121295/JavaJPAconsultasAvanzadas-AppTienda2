@@ -45,6 +45,9 @@ public class Pedido {
 	 Ya los elementos del tipo OneToMany o ManyToMany, ellos por default ya son del tipo lazy.	 
 	 //con Fetch le indicamos a la app que traeremos esos recursos cuando sea necesario.
 	 */
+	/*Es parte de las buenas prácticas que toda nuestra aplicación sea lazy, para evitar el consumo excesivo de memoria y agilizar aumentar la velocidad de nuestra aplicación, ya que vamos a evitar que estén siendo consultados valores o informaciones que no sean deseados dentro de nuestra consulta.
+	 * Sin embargo, uno de los problemas que puede ocurrir cuando nosotros agregamos el parámetro lazy a una notación que es del tipo eager, nos encontremos con una excepción, ya que puede ocurrir que para ese punto el EntityManager se encuentre cerrado. 
+	 */
 	
 	
 	//Relacion con: Pedidos --> Productos (muchos a muchos): Un pedido puede tener múltiples productos y esos múltiples productos pueden encontrarse en muchos pedidos.

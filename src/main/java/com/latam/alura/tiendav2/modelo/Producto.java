@@ -50,6 +50,11 @@ public class Producto { //El nombre de la clase tiene que ser igual que la tabla
 	@ManyToOne(fetch=FetchType.LAZY) //Muchos productos tienen una unica categoria. - Con esto relacionamos la entidad producto con Categoria
 	private Categoria categoria; //Tipo Categoria, sera una clase. //No tener creada la clase Categoria da un error entonces: Clic derecho sobre la cateroria y clic en Create enum 'Categoria'
 	
+	/*Es parte de las buenas prácticas que toda nuestra aplicación sea lazy, para evitar el consumo excesivo de memoria y agilizar aumentar la velocidad de nuestra aplicación, ya que vamos a evitar que estén siendo consultados valores o informaciones que no sean deseados dentro de nuestra consulta.
+	 * Sin embargo, uno de los problemas que puede ocurrir cuando nosotros agregamos el parámetro lazy a una notación que es del tipo eager, nos encontremos con una excepción, ya que puede ocurrir que para ese punto el EntityManager se encuentre cerrado.
+	 */
+	
+	
 	public Producto() { //para probar el flush de RegistroDeProducto
 		
 	}
